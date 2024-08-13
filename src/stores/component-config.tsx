@@ -7,6 +7,7 @@ export interface ComponentConfig {
   name: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultProps: Record<string, any>
+  desc: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: any
 }
@@ -24,6 +25,7 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
     Container: {
       name: 'Container',
       defaultProps: {},
+      desc: '容器',
       component: Container,
     },
     Button: {
@@ -32,11 +34,13 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
         type: 'primary',
         text: '按钮',
       },
+      desc: '按钮',
       component: Button,
     },
     Page: {
       name: 'Page',
       defaultProps: {},
+      desc: '页面',
       component: Page,
     },
   },

@@ -3,19 +3,25 @@ import { create } from 'zustand'
 export interface Component {
   id: number
   name: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   props: any
   children?: Component[]
   parentId?: number
+  desc: string
 }
 
 interface State {
   components: Component[]
+  curComponentId?: number | null
+  curComponent: Component | null
 }
 
 interface Action {
   addComponent: (component: Component, parentId?: number) => void
   deleteComponent: (componentId: number) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateComponentProps: (componentId: number, props: any) => void
+  setCurComponentId: (componentId: number | null) => void
 }
 
 export const useComponetsStore = create<State & Action>((set, get) => ({
@@ -27,6 +33,8 @@ export const useComponetsStore = create<State & Action>((set, get) => ({
       desc: '页面',
     },
   ],
+  curComponentId: null,
+  curComponent: null,
   addComponent: (component, parentId) =>
     set((state) => {
       if (parentId) {
@@ -75,6 +83,11 @@ export const useComponetsStore = create<State & Action>((set, get) => ({
 
       return { components: [...state.components] }
     }),
+  setCurComponentId: (componentId) =>
+    set((state) => ({
+      curComponentId: componentId,
+      curComponent: getComponentById(componentId, state.components),
+    })),
 }))
 
 export function getComponentById(
