@@ -1,5 +1,5 @@
-import { useComponentConfigStore } from '@/editor/stores/component-config'
-import { Component, useComponetsStore } from '@/editor/stores/components'
+import { useComponentConfigStore } from '@/stores/component-config'
+import { Component, useComponetsStore } from '@/stores/components'
 import React from 'react'
 
 export function EditArea() {

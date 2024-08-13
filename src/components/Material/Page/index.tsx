@@ -1,6 +1,6 @@
-import { CommonComponentProps } from '@/editor/interface'
-import { useComponentConfigStore } from '@/editor/stores/component-config'
-import { useComponetsStore } from '@/editor/stores/components'
+import { CommonComponentProps } from '@/interface'
+import { useComponentConfigStore } from '@/stores/component-config'
+import { useComponetsStore } from '@/stores/components'
 import { useDrop } from 'react-dnd'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

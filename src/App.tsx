@@ -1,4 +1,4 @@
-import LowcodeEditor from './editor'
+import LowcodeEditor from './index'
 
 function App() {
   return <LowcodeEditor />

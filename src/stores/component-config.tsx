@@ -1,6 +1,6 @@
-import Button from '@/editor/components/Material/Button'
-import Container from '@/editor/components/Material/Container'
-import Page from '@/editor/components/Material/Page'
+import Button from '@/components/Material/Button'
+import Container from '@/components/Material/Container'
+import Page from '@/components/Material/Page'
 import { create } from 'zustand'
 
 export interface ComponentConfig {

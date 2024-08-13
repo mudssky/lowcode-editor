@@ -1,4 +1,4 @@
-import { useComponentConfigStore } from '@/editor/stores/component-config'
+import { useComponentConfigStore } from '@/stores/component-config'
 import { useMemo } from 'react'
 import { useDrag } from 'react-dnd'
 
