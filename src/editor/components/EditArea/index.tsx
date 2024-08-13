@@ -1,41 +1,41 @@
-import { useComponentConfigStore } from "@/editor/stores/component-config";
-import { Component, useComponetsStore } from "@/editor/stores/components";
-import React, { useEffect } from "react";
+import { useComponentConfigStore } from '@/editor/stores/component-config'
+import { Component, useComponetsStore } from '@/editor/stores/components'
+import React, { useEffect } from 'react'
 
 export function EditArea() {
-  const { components, addComponent } = useComponetsStore();
-  const { componentConfig } = useComponentConfigStore();
+  const { components, addComponent } = useComponetsStore()
+  const { componentConfig } = useComponentConfigStore()
 
   useEffect(() => {
     addComponent(
       {
         id: 222,
-        name: "Container",
+        name: 'Container',
         props: {},
         children: [],
       },
-      1
-    );
+      1,
+    )
 
     addComponent(
       {
         id: 333,
-        name: "Button",
+        name: 'Button',
         props: {
-          text: "测试",
+          text: '测试',
         },
         children: [],
       },
-      222
-    );
-  }, []);
+      222,
+    )
+  }, [])
 
   function renderComponents(components: Component[]): React.ReactNode {
     return components.map((component: Component) => {
-      const config = componentConfig?.[component.name];
+      const config = componentConfig?.[component.name]
 
       if (!config?.component) {
-        return null;
+        return null
       }
 
       return React.createElement(
@@ -45,9 +45,9 @@ export function EditArea() {
           ...config.defaultProps,
           ...component.props,
         },
-        renderComponents(component.children || [])
-      );
-    });
+        renderComponents(component.children || []),
+      )
+    })
   }
 
   return (
@@ -55,5 +55,5 @@ export function EditArea() {
       <pre>{JSON.stringify(components, null, 2)}</pre>
       {renderComponents(components)}
     </div>
-  );
+  )
 }

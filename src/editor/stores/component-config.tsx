@@ -1,39 +1,39 @@
-import { create } from "zustand";
-import Container from "@/editor/components/Material/Container";
-import Button from "@/editor/components/Material/Button";
-import Page from "@/editor/components/Material/Page";
+import Button from '@/editor/components/Material/Button'
+import Container from '@/editor/components/Material/Container'
+import Page from '@/editor/components/Material/Page'
+import { create } from 'zustand'
 
 export interface ComponentConfig {
-  name: string;
-  defaultProps: Record<string, any>;
-  component: any;
+  name: string
+  defaultProps: Record<string, any>
+  component: any
 }
 
 interface State {
-  componentConfig: { [key: string]: ComponentConfig };
+  componentConfig: { [key: string]: ComponentConfig }
 }
 
 interface Action {
-  registerComponent: (name: string, componentConfig: ComponentConfig) => void;
+  registerComponent: (name: string, componentConfig: ComponentConfig) => void
 }
 
 export const useComponentConfigStore = create<State & Action>((set) => ({
   componentConfig: {
     Container: {
-      name: "Container",
+      name: 'Container',
       defaultProps: {},
       component: Container,
     },
     Button: {
-      name: "Button",
+      name: 'Button',
       defaultProps: {
-        type: "primary",
-        text: "按钮",
+        type: 'primary',
+        text: '按钮',
       },
       component: Button,
     },
     Page: {
-      name: "Page",
+      name: 'Page',
       defaultProps: {},
       component: Page,
     },
@@ -46,6 +46,6 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
           ...state.componentConfig,
           [name]: componentConfig,
         },
-      };
+      }
     }),
-}));
+}))

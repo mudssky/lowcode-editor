@@ -1,7 +1,7 @@
-import LowcodeEditor from "./editor";
+import LowcodeEditor from './editor'
 
 function App() {
-  return <LowcodeEditor />;
+  return <LowcodeEditor />
 }
 
-export default App;
+export default App
