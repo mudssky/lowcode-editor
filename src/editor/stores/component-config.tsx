@@ -5,7 +5,9 @@ import { create } from 'zustand'
 
 export interface ComponentConfig {
   name: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultProps: Record<string, any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: any
 }
 

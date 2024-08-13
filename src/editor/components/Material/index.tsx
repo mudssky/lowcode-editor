@@ -1,5 +1,6 @@
 import { useComponentConfigStore } from '@/editor/stores/component-config'
 import { useMemo } from 'react'
+import { useDrag } from 'react-dnd'
 
 export interface MaterialItemProps {
   name: string
@@ -8,8 +9,16 @@ export interface MaterialItemProps {
 export function MaterialItem(props: MaterialItemProps) {
   const { name } = props
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, drag] = useDrag({
+    type: name,
+    item: {
+      type: name,
+    },
+  })
   return (
     <div
+      ref={drag}
       className="
             border-dashed
             border-[1px]
