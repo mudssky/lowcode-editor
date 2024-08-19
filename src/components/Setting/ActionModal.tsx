@@ -1,23 +1,37 @@
 import { ComponentEvent } from '@/stores/component-config'
 import { Modal, Segmented } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { CustomJS, CustomJSConfig } from './actions/CustomJS'
 import { GoToLink, GoToLinkConfig } from './actions/GoToLink'
 import { ShowMessage, ShowMessageConfig } from './actions/ShowMessage'
+export type ActionConfig = GoToLinkConfig | ShowMessageConfig | CustomJSConfig
 
 interface ActionModalProps {
   visible: boolean
+  action?: ActionConfig
   eventConfig: ComponentEvent
-  handleOk: (config?: GoToLinkConfig | ShowMessageConfig) => void
+  handleOk: (config?: ActionConfig) => void
   handleCancel: () => void
 }
 
 export function ActionModal(props: ActionModalProps) {
-  const { visible, handleOk, handleCancel } = props
-  const [curConfig, setCurConfig] = useState<
-    GoToLinkConfig | ShowMessageConfig
-  >()
+  const { visible, handleOk, handleCancel, action } = props
+
+  const map = {
+    goToLink: '访问链接',
+    showMessage: '消息提示',
+    customJS: '自定义 JS',
+  }
+
+  const [curConfig, setCurConfig] = useState<ActionConfig>()
 
   const [key, setKey] = useState<string>('访问链接')
+
+  useEffect(() => {
+    if (action?.type) {
+      setKey(map[action.type])
+    }
+  }, [action])
 
   return (
     <Modal
@@ -38,6 +52,7 @@ export function ActionModal(props: ActionModalProps) {
         />
         {key === '访问链接' && (
           <GoToLink
+            value={action?.type === 'goToLink' ? action.url : ''}
             onChange={(config) => {
               setCurConfig(config)
             }}
@@ -45,6 +60,15 @@ export function ActionModal(props: ActionModalProps) {
         )}
         {key === '消息提示' && (
           <ShowMessage
+            value={action?.type === 'showMessage' ? action.config : undefined}
+            onChange={(config) => {
+              setCurConfig(config)
+            }}
+          />
+        )}
+        {key === '自定义 JS' && (
+          <CustomJS
+            value={action?.type === 'customJS' ? action.code : ''}
             onChange={(config) => {
               setCurConfig(config)
             }}
