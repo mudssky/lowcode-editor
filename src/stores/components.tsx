@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react'
 import { create } from 'zustand'
 
 export interface Component {
@@ -8,12 +9,14 @@ export interface Component {
   children?: Component[]
   parentId?: number
   desc: string
+  styles?: CSSProperties
 }
 
 interface State {
   components: Component[]
   curComponentId?: number | null
   curComponent: Component | null
+  mode: 'edit' | 'preview'
 }
 
 interface Action {
@@ -22,6 +25,7 @@ interface Action {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateComponentProps: (componentId: number, props: any) => void
   setCurComponentId: (componentId: number | null) => void
+  setMode: (mode: State['mode']) => void
 }
 
 export const useComponetsStore = create<State & Action>((set, get) => ({
@@ -35,6 +39,8 @@ export const useComponetsStore = create<State & Action>((set, get) => ({
   ],
   curComponentId: null,
   curComponent: null,
+  mode: 'edit',
+  setMode: (mode) => set({ mode }),
   addComponent: (component, parentId) =>
     set((state) => {
       if (parentId) {

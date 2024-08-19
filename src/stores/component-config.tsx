@@ -1,6 +1,9 @@
-import Button from '@/components/Material/Button'
-import Container from '@/components/Material/Container'
-import Page from '@/components/Material/Page'
+import ButtonDev from '@/components/Material/Button/dev'
+import ButtonProd from '@/components/Material/Button/prod'
+import ContainerDev from '@/components/Material/Container/dev'
+import ContainerProd from '@/components/Material/Container/prod'
+import PageDev from '@/components/Material/Page/dev'
+import PageProd from '@/components/Material/Page/prod'
 import { create } from 'zustand'
 
 export interface ComponentSetter {
@@ -18,7 +21,11 @@ export interface ComponentConfig {
   setter?: ComponentSetter[]
   desc: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: any
+  // component: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dev: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  prod: any
 }
 
 interface State {
@@ -35,7 +42,9 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
       name: 'Container',
       defaultProps: {},
       desc: '容器',
-      component: Container,
+      // component: Container,
+      dev: ContainerDev,
+      prod: ContainerProd,
     },
     Button: {
       name: 'Button',
@@ -60,13 +69,17 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
         },
       ],
       desc: '按钮',
-      component: Button,
+      // component: Button,
+      dev: ButtonDev,
+      prod: ButtonProd,
     },
     Page: {
       name: 'Page',
       defaultProps: {},
       desc: '页面',
-      component: Page,
+      // component: Page,
+      dev: PageDev,
+      prod: PageProd,
     },
   },
   registerComponent: (name, componentConfig) =>
