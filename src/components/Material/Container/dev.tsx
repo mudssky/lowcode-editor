@@ -3,7 +3,7 @@ import { CommonComponentProps } from '@/interface'
 
 import clsx from 'clsx'
 
-const Container = ({ id, children }: CommonComponentProps) => {
+const Container = ({ id, children, styles }: CommonComponentProps) => {
   const { canDrop, drop } = useMaterailDrop(
     ['Button', 'Container', 'Modal'],
     id,
@@ -16,6 +16,7 @@ const Container = ({ id, children }: CommonComponentProps) => {
         'border-[1px] border-[#000] min-h-[100px] p-[20px]',
         canDrop ? 'border-[2px] border-[blue]' : 'border-[1px] border-[#000]',
       )}
+      style={styles}
     >
       {children}
     </div>

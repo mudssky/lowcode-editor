@@ -10,7 +10,7 @@ export interface ButtonProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Button = ({ id, type, text, styles, ...props }: CommonComponentProps) => {
   return (
-    <AntdButton type={type} {...props}>
+    <AntdButton type={type} {...props} style={styles}>
       {text}
     </AntdButton>
   )

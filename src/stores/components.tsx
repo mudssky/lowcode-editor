@@ -26,6 +26,7 @@ interface Action {
   updateComponentProps: (componentId: number, props: any) => void
   setCurComponentId: (componentId: number | null) => void
   setMode: (mode: State['mode']) => void
+  updateComponentStyles: (componentId: number, styles: CSSProperties) => void
 }
 
 export const useComponetsStore = create<State & Action>((set, get) => ({
@@ -83,6 +84,17 @@ export const useComponetsStore = create<State & Action>((set, get) => ({
       const component = getComponentById(componentId, state.components)
       if (component) {
         component.props = { ...component.props, ...props }
+
+        return { components: [...state.components] }
+      }
+
+      return { components: [...state.components] }
+    }),
+  updateComponentStyles: (componentId, styles) =>
+    set((state) => {
+      const component = getComponentById(componentId, state.components)
+      if (component) {
+        component.styles = { ...component.styles, ...styles }
 
         return { components: [...state.components] }
       }
