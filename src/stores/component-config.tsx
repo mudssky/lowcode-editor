@@ -14,11 +14,18 @@ export interface ComponentSetter {
   [key: string]: any
 }
 
+export interface ComponentEvent {
+  name: string
+  label: string
+}
+
 export interface ComponentConfig {
   name: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultProps: Record<string, any>
   setter?: ComponentSetter[]
+  stylesSetter?: ComponentSetter[]
+  events?: ComponentEvent[]
   desc: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // component: any
@@ -66,6 +73,28 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
           name: 'text',
           label: '文本',
           type: 'input',
+        },
+      ],
+      stylesSetter: [
+        {
+          name: 'width',
+          label: '宽度',
+          type: 'inputNumber',
+        },
+        {
+          name: 'height',
+          label: '高度',
+          type: 'inputNumber',
+        },
+      ],
+      events: [
+        {
+          name: 'onClick',
+          label: '点击事件',
+        },
+        {
+          name: 'onDoubleClick',
+          label: '双击事件',
         },
       ],
       desc: '按钮',
