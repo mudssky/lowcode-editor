@@ -18,6 +18,7 @@ export function ComponentStyle() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [cssValue, setCssValue] = useState<string>(`.comp{\n\n}`)
   useEffect(() => {
+    form.resetFields()
     const data = form.getFieldsValue()
     form.setFieldsValue({ ...data, ...curComponent?.styles })
   }, [curComponent])
@@ -42,8 +43,7 @@ export function ComponentStyle() {
         ] = value
       })
 
-      console.log(css)
-      updateComponentStyles(curComponentId, css)
+      updateComponentStyles(curComponentId, css, true)
     } catch (e) {
       console.error(e)
     }

@@ -26,7 +26,11 @@ interface Action {
   updateComponentProps: (componentId: number, props: any) => void
   setCurComponentId: (componentId: number | null) => void
   setMode: (mode: State['mode']) => void
-  updateComponentStyles: (componentId: number, styles: CSSProperties) => void
+  updateComponentStyles: (
+    componentId: number,
+    styles: CSSProperties,
+    replace?: boolean,
+  ) => void
 }
 
 export const useComponetsStore = create<State & Action>((set, get) => ({
@@ -90,11 +94,13 @@ export const useComponetsStore = create<State & Action>((set, get) => ({
 
       return { components: [...state.components] }
     }),
-  updateComponentStyles: (componentId, styles) =>
+  updateComponentStyles: (componentId, styles, replace?: boolean) =>
     set((state) => {
       const component = getComponentById(componentId, state.components)
       if (component) {
-        component.styles = { ...component.styles, ...styles }
+        component.styles = replace
+          ? { ...styles }
+          : { ...component.styles, ...styles }
 
         return { components: [...state.components] }
       }
