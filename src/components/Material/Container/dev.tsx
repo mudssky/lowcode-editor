@@ -4,7 +4,10 @@ import { CommonComponentProps } from '@/interface'
 import clsx from 'clsx'
 
 const Container = ({ id, children }: CommonComponentProps) => {
-  const { canDrop, drop } = useMaterailDrop(['Button', 'Container'], id)
+  const { canDrop, drop } = useMaterailDrop(
+    ['Button', 'Container', 'Modal'],
+    id,
+  )
   return (
     <div
       data-component-id={id}

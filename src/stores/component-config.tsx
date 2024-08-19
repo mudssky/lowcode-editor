@@ -2,8 +2,11 @@ import ButtonDev from '@/components/Material/Button/dev'
 import ButtonProd from '@/components/Material/Button/prod'
 import ContainerDev from '@/components/Material/Container/dev'
 import ContainerProd from '@/components/Material/Container/prod'
+import ModalDev from '@/components/Material/Modal/dev'
+import ModalProd from '@/components/Material/Modal/prod'
 import PageDev from '@/components/Material/Page/dev'
 import PageProd from '@/components/Material/Page/prod'
+
 import { create } from 'zustand'
 
 export interface ComponentSetter {
@@ -101,6 +104,33 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
       // component: Button,
       dev: ButtonDev,
       prod: ButtonProd,
+    },
+    Modal: {
+      name: 'Modal',
+      defaultProps: {
+        title: '弹窗',
+      },
+      setter: [
+        {
+          name: 'title',
+          label: '标题',
+          type: 'input',
+        },
+      ],
+      stylesSetter: [],
+      events: [
+        {
+          name: 'onOk',
+          label: '确认事件',
+        },
+        {
+          name: 'onCancel',
+          label: '取消事件',
+        },
+      ],
+      desc: '弹窗',
+      dev: ModalDev,
+      prod: ModalProd,
     },
     Page: {
       name: 'Page',
