@@ -4,7 +4,7 @@ import { CommonComponentProps } from '@/interface'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function Page({ id, name, children, styles }: CommonComponentProps) {
   const { canDrop, drop } = useMaterailDrop(
-    ['Button', 'Container', 'Modal'],
+    ['Button', 'Container', 'Modal', 'Table'],
     id,
   )
 

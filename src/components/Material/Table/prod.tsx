@@ -1,32 +1,61 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonComponentProps } from '@/interface'
 import { Table as AntdTable } from 'antd'
-import React, { useMemo, useRef } from 'react'
+import dayjs from 'dayjs'
+import React, { useEffect, useMemo, useState } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function Table({ id, name, children, styles, ...props }: CommonComponentProps) {
-  const divRef = useRef<HTMLDivElement>(null)
+function Table({
+  url,
+  // id,
+  // name,
+  children,
+  styles,
+  ...props
+}: CommonComponentProps) {
+  const [data, setData] = useState<Array<Record<string, any>>>([])
+  const [loading, setLoading] = useState(false)
+
+  const getData = async () => {
+    if (url) {
+      setLoading(true)
+
+      // const { data } = await axios.get(url)
+      setData(data)
+
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
 
   const columns = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return React.Children.map(children, (item: any) => {
-      return {
-        title: (
-          <div
-            className="m-[-16px] p-[16px]"
-            data-component-id={item.props?.id}
-          >
-            {item.props?.title}
-          </div>
-        ),
-        dataIndex: item.props?.dataIndex,
+      if (item?.props?.type === 'date') {
+        return {
+          title: item.props?.title,
+          dataIndex: item.props?.dataIndex,
+          render: (value: any) =>
+            value ? dayjs(value).format('YYYY-MM-DD') : null,
+        }
+      } else {
+        return {
+          title: item.props?.title,
+          dataIndex: item.props?.dataIndex,
+        }
       }
     })
   }, [children])
 
   return (
-    <div ref={divRef} data-component-id={id} style={styles} {...props}>
-      <AntdTable columns={columns} dataSource={[]} pagination={false} />
-    </div>
+    <AntdTable
+      columns={columns}
+      dataSource={data}
+      pagination={false}
+      rowKey="id"
+      loading={loading}
+    />
   )
 }
 
