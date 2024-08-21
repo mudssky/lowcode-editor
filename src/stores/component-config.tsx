@@ -6,6 +6,8 @@ import ModalDev from '@/components/Material/Modal/dev'
 import ModalProd from '@/components/Material/Modal/prod'
 import PageDev from '@/components/Material/Page/dev'
 import PageProd from '@/components/Material/Page/prod'
+import TableDev from '@/components/Material/Table/dev'
+import TableProd from '@/components/Material/Table/prod'
 
 import { create } from 'zustand'
 
@@ -156,6 +158,20 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
       // component: Page,
       dev: PageDev,
       prod: PageProd,
+    },
+    Table: {
+      name: 'Table',
+      defaultProps: {},
+      desc: '表格',
+      setter: [
+        {
+          name: 'url',
+          label: 'url',
+          type: 'input',
+        },
+      ],
+      dev: TableDev,
+      prod: TableProd,
     },
   },
   registerComponent: (name, componentConfig) =>
