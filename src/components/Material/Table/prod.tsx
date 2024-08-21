@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonComponentProps } from '@/interface'
 import { Table as AntdTable } from 'antd'
+import axios from 'axios'
 import dayjs from 'dayjs'
 import React, { useEffect, useMemo, useState } from 'react'
 
@@ -9,8 +10,6 @@ function Table({
   // id,
   // name,
   children,
-  styles,
-  ...props
 }: CommonComponentProps) {
   const [data, setData] = useState<Array<Record<string, any>>>([])
   const [loading, setLoading] = useState(false)
@@ -19,7 +18,7 @@ function Table({
     if (url) {
       setLoading(true)
 
-      // const { data } = await axios.get(url)
+      const { data } = await axios.get(url)
       setData(data)
 
       setLoading(false)
