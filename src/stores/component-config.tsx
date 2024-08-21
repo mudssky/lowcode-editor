@@ -22,6 +22,11 @@ export interface ComponentEvent {
   label: string
 }
 
+export interface ComponentMethod {
+  name: string
+  label: string
+}
+
 export interface ComponentConfig {
   name: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,6 +34,7 @@ export interface ComponentConfig {
   setter?: ComponentSetter[]
   stylesSetter?: ComponentSetter[]
   events?: ComponentEvent[]
+  methods?: ComponentMethod[]
   desc: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   // component: any
@@ -128,6 +134,17 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
           label: '取消事件',
         },
       ],
+      methods: [
+        {
+          name: 'open',
+          label: '打开弹窗',
+        },
+        {
+          name: 'close',
+          label: '关闭弹窗',
+        },
+      ],
+
       desc: '弹窗',
       dev: ModalDev,
       prod: ModalProd,
