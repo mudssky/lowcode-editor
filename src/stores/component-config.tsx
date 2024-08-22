@@ -2,6 +2,8 @@ import ButtonDev from '@/components/Material/Button/dev'
 import ButtonProd from '@/components/Material/Button/prod'
 import ContainerDev from '@/components/Material/Container/dev'
 import ContainerProd from '@/components/Material/Container/prod'
+import FormDev from '@/components/Material/Form/dev'
+import FormProd from '@/components/Material/Form/prod'
 import ModalDev from '@/components/Material/Modal/dev'
 import ModalProd from '@/components/Material/Modal/prod'
 import PageDev from '@/components/Material/Page/dev'
@@ -11,7 +13,11 @@ import TableProd from '@/components/Material/Table/prod'
 import TableColumnDev from '@/components/Material/TableColumn/dev'
 import TableColumnProd from '@/components/Material/TableColumn/prod'
 
-import { create } from 'zustand'
+import FormItemDev from '@/components/Material/FormItem/dev'
+import FormItemProd from '@/components/Material/FormItem/prod'
+
+import { create, StateCreator } from 'zustand'
+import { withPersist } from './components'
 
 export interface ComponentSetter {
   name: string
@@ -56,7 +62,7 @@ interface Action {
   registerComponent: (name: string, componentConfig: ComponentConfig) => void
 }
 
-export const useComponentConfigStore = create<State & Action>((set) => ({
+const creator: StateCreator<State & Action> = (set) => ({
   componentConfig: {
     Container: {
       name: 'Container',
@@ -212,6 +218,80 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
       dev: TableColumnDev,
       prod: TableColumnProd,
     },
+    Form: {
+      name: 'Form',
+      defaultProps: {},
+      desc: '表单',
+      setter: [
+        {
+          name: 'title',
+          label: '标题',
+          type: 'input',
+        },
+      ],
+      events: [
+        {
+          name: 'onFinish',
+          label: '提交事件',
+        },
+      ],
+      methods: [
+        {
+          name: 'submit',
+          label: '提交',
+        },
+      ],
+      dev: FormDev,
+      prod: FormProd,
+    },
+    FormItem: {
+      name: 'FormItem',
+      desc: '表单项',
+      defaultProps: {
+        name: new Date().getTime(),
+        label: '姓名',
+      },
+      dev: FormItemDev,
+      prod: FormItemProd,
+      setter: [
+        {
+          name: 'type',
+          label: '类型',
+          type: 'select',
+          options: [
+            {
+              label: '文本',
+              value: 'input',
+            },
+            {
+              label: '日期',
+              value: 'date',
+            },
+          ],
+        },
+        {
+          name: 'label',
+          label: '标题',
+          type: 'input',
+        },
+        {
+          name: 'name',
+          label: '字段',
+          type: 'input',
+        },
+        {
+          name: 'rules',
+          label: '校验',
+          type: 'select',
+          options: [
+            {
+              label: '必填',
+              value: 'required',
+            },
+          ],
+        },
+      ],
+    },
   },
   registerComponent: (name, componentConfig) =>
     set((state) => {
@@ -223,4 +303,9 @@ export const useComponentConfigStore = create<State & Action>((set) => ({
         },
       }
     }),
-}))
+})
+export const useComponentConfigStore = create<State & Action>()(
+  withPersist(false)(creator, {
+    name: 'COMPONENT_CONFIG',
+  }),
+)

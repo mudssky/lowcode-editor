@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react'
-import { create } from 'zustand'
+import { create, StateCreator } from 'zustand'
+import { persist, PersistOptions } from 'zustand/middleware'
 
 export interface Component {
   id: number
@@ -33,7 +34,7 @@ interface Action {
   ) => void
 }
 
-export const useComponetsStore = create<State & Action>((set, get) => ({
+const creator: StateCreator<State & Action> = (set, get) => ({
   components: [
     {
       id: 1,
@@ -112,7 +113,19 @@ export const useComponetsStore = create<State & Action>((set, get) => ({
       curComponentId: componentId,
       curComponent: getComponentById(componentId, state.components),
     })),
-}))
+})
+
+export const withPersist =
+  (enablePersist: boolean) =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (config: any, options: PersistOptions<unknown, unknown>) =>
+    enablePersist ? persist(config, options) : config
+
+export const useComponetsStore = create<State & Action>()(
+  withPersist(true)(creator, {
+    name: 'COMPONENTS_STORE',
+  }),
+)
 
 export function getComponentById(
   id: number | null,
